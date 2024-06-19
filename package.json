@@ -6,9 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js",
-    "typeorm:generate": "npx typeorm-ts-node-esm migration:generate src/database/migrations/migrations -d src/models/index.js -p -o",
-    "typeorm:migrate": "npx typeorm-ts-node-esm migration:run -d ./src/models/index.js"
+    "dev": "nodemon index.js"
   },
   "imports": {
     "#config/*": "./config/*",
@@ -40,11 +38,9 @@
     "mysql": "^2.18.1",
     "mysql2": "^3.10.0",
     "postgres": "^3.4.4",
-    "sqlite3": "^5.1.7",
-    "typeorm": "^0.3.20"
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7",
-    "ts-node": "^10.9.2"
+    "nodemon": "^2.0.7"
   }
 }
