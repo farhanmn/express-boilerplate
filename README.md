@@ -7,8 +7,8 @@ An Express Boilerplate with Javascript ES6 style and Knex
 Clone this express-boilerplate with git
 
 ```bash
-  git clone https://github.com/farhannjb/express-boilerplate
-  cd express-boilerplate
+  git clone https://github.com/farhannjb/express-boilerplate-2
+  cd express-boilerplate-2
   ## rename .env.development to .env
   ## adjust the value inside as you needed
   yarn install
