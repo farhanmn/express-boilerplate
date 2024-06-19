@@ -8,6 +8,9 @@ import { fileURLToPath } from 'url'
 import route from '#routes/index.js'
 dotenv.config()
 
+// database
+import knex from '#models/index.js'
+
 import logger from '#helper/logger.js'
 import standardFormat from '#middlewares/stdJson.js'
 
@@ -17,6 +20,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const app = express()
+const config = process.env
 
 app.use(compression())
 app.use(helmet())
@@ -33,6 +37,14 @@ route(app)
 
 const port = process.env.PORT || 3000
 
-app.listen(port, () => {
-  console.log('App is now running at port:', port)
+const server = app.listen(port, () => {
+  console.log(`Server listening on port ${port}`)
+})
+
+process.on('SIGINT', async () => {
+  console.log('Closed out remaining connections')
+  server.close()
+  await knex.destroy()
+  console.log('app:database connection closed!')
+  process.exit(0)
 })

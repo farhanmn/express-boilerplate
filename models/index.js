@@ -1,5 +1,5 @@
 import Knex from 'knex'
-import enVariables from '../config/index.js'
+import enVariables from '#config/index.js'
 
 const config = enVariables
 
@@ -13,9 +13,25 @@ const knex = Knex({
     debug: true,
   },
   pool: {
-    min: 0,
-    max: 7,
+    min: 2,
+    max: 10,
+  },
+  log: {
+    debug(message) {
+      console.log(message)
+    },
   },
 })
+
+knex
+  .raw('SELECT version() as version')
+  .then((res) => {
+    console.log(`app:database ${config.dialect} connection with knex success!`)
+  })
+  .catch((e) => {
+    console.error(
+      `app:database ${config.dialect} connection with knex error : \n` + e
+    )
+  })
 
 export default knex
