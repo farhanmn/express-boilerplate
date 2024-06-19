@@ -1,0 +1,50 @@
+{
+  "name": "express-boilerplate-2",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "typeorm:generate": "npx typeorm-ts-node-esm migration:generate src/database/migrations/migrations -d src/models/index.js -p -o",
+    "typeorm:migrate": "npx typeorm-ts-node-esm migration:run -d ./src/models/index.js"
+  },
+  "imports": {
+    "#config/*": "./config/*",
+    "#controllers/*": "./controllers/*",
+    "#database/*": "./database/*",
+    "#helper/*": "./helper/*",
+    "#middlewares/*": "./middlewares/*",
+    "#models/*": "./models/*",
+    "#public/*": "./public/*",
+    "#routes/*": "./routes/*"
+  },
+  "engines": {
+    "node": ">=21.1.0"
+  },
+  "author": "Muhammad Farhan",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "express": "^4.17.1",
+    "express-rate-limit": "^7.3.1",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "knex": "^3.1.0",
+    "moment": "^2.30.1",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.10.0",
+    "postgres": "^3.4.4",
+    "sqlite3": "^5.1.7",
+    "typeorm": "^0.3.20"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "ts-node": "^10.9.2"
+  }
+}
