@@ -1,6 +1,6 @@
 # Express Boilerplate
 
-An Express Boilerplate with Javascript ES6 style and TypeORM
+An Express Boilerplate with Javascript ES6 style and Knex
 
 ## Installation
 
@@ -25,7 +25,6 @@ To run this project, you will need to add the following environment variables to
 `DB_PASS`
 `DB_NAME`
 `DB_DIALECT`
-`DB_LOGGING`
 `JWT_SECRET`
 `JWT_REFRESH_SECRET`
 `JWT_ALGORITHM`
@@ -38,17 +37,17 @@ To run this project, you will need to add the following environment variables to
 - [JWT](https://jwt.io/) - a compact URL-safe means of representing claims to be transferred between two parties
 - [morgan](https://github.com/expressjs/morgan) - HTTP request logger middleware for node.js
 - [chalk](https://github.com/chalk/chalk#readme) - Terminal string styling done right
-- [TypeORM](https://typeorm.io/) - an ORM that can run in NodeJS, Browser, Cordova, PhoneGap, Ionic, React Native, NativeScript, Expo, and Electron platforms and can be used with TypeScript and JavaScript (ES2021)
+- [knex](https://knexjs.org/) - is a "batteries included" SQL query builder for PostgreSQL, CockroachDB, MSSQL, MySQL, MariaDB, SQLite3, Better-SQLite3, Oracle, and Amazon Redshift designed to be flexible, portable, and fun to use.
 
 ## Script
 
 - `yarn start` - Runs the application using Node.js
 - `yarn run dev` - Runs the application in development mode with automatic restarts using `nodemon`
-- `yarn run typeorm:generate`[^1] - Generates a new migration file based on changes to the entities
-- `yarn run typeorm:migrate` - Applies pending migrations to the database
+<!-- - `yarn run typeorm:generate`[^1] - Generates a new migration file based on changes to the entities
+- `yarn run typeorm:migrate` - Applies pending migrations to the database -->
 
 ## Authors
 
 - [@farhannjb](https://github.com/farhannjb)
 
-[^1]: If you have generated the migration script, please make sure to change it to ES6 style, such as changing `module.exports` to `export` and remove all unnucessary imported data.
+<!-- [^1]: If you have generated the migration script, please make sure to change it to ES6 style, such as changing `module.exports` to `export` and remove all unnucessary imported data. -->
