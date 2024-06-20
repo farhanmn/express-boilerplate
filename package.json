@@ -17,7 +17,8 @@
     "#models/*": "./models/*",
     "#public/*": "./public/*",
     "#routes/*": "./routes/*",
-    "#services/*": "./services/*"
+    "#services/*": "./services/*",
+    "#views/*": "./views/*"
   },
   "engines": {
     "node": ">=21.1.0"
