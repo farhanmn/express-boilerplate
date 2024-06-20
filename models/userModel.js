@@ -2,7 +2,7 @@ import knex from '#models/index.js'
 
 const tableName = 'users'
 
-const user = {
+const userModel = {
   getProfile: ({ user_id }) => {
     return knex(tableName).where({ user_id }).first()
   },
@@ -40,4 +40,4 @@ const user = {
   },
 }
 
-export default user
+export default userModel

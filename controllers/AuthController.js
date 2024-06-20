@@ -4,12 +4,12 @@ import { hash } from '#helper/crypto.js'
 import { create_token, verify } from '#helper/user.js'
 import moment from 'moment'
 
-import modelUsers from '#models/user.js'
+import userServices from '#services/userServices.js'
 
 const signUp = async (req, res) => {
   const { user_email, user_password, user_name, user_phone } = req.body
   try {
-    const user = await modelUsers.checkUser({ user_email, user_phone })
+    const user = await userServices.checkUser({ user_email, user_phone })
     if (user) {
       return res.stdJson(
         SC.UNPROCESSABLE,
@@ -19,7 +19,7 @@ const signUp = async (req, res) => {
     }
 
     const hashpassword = hash(user_password)
-    await modelUsers.createUser({
+    await userServices.createUser({
       user_name,
       user_email,
       user_password: hashpassword.pwd,
@@ -40,7 +40,7 @@ const signUp = async (req, res) => {
 const signIn = async (req, res) => {
   const { user_email, user_phone, user_password } = req.body
   try {
-    const user = await modelUsers.checkUser({ user_email, user_phone })
+    const user = await userServices.checkUser({ user_email, user_phone })
     if (!user) {
       return res.stdJson(SC.UNAUTHORIZED, null)
     }
@@ -50,7 +50,7 @@ const signIn = async (req, res) => {
       return res.stdJson(SC.UNAUTHORIZED, null)
     }
 
-    await modelUsers.updateUser({
+    await userServices.updateUser({
       user_id: user.user_id,
       user_last_login_at: moment().format('YYYY-MM-DD HH:mm:ss'),
     })
