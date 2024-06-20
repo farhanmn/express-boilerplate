@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 import { SC } from '#helper/statuscode.js'
 const { verify } = jwt
 
-import modelUser from '#models/user.js'
+import userServices from '#services/userServices.js'
 
 const jwtConf = {
   secret: process.env.JWT_SECRET || 'secret',
@@ -31,7 +31,7 @@ const useraccess = (router) => {
         if (decoded.iat) delete decoded.iat
         if (decoded.exp) delete decoded.exp
         if (decoded.userid) {
-          const profile = await modelUser.getProfile({
+          const profile = await userServices.getProfile({
             user_id: decoded.userid,
           })
           if (!profile) {

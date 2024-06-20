@@ -13,7 +13,7 @@ import route from '#routes/index.js'
 import knex from '#models/index.js'
 
 import logger from '#helper/logger.js'
-import standardFormat from '#middlewares/stdJson.js'
+// import standardFormat from '#middlewares/stdJson.js'
 
 import { limiter } from '#helper/security.js'
 
@@ -25,7 +25,7 @@ const app = express()
 app.use(compression())
 app.use(helmet())
 app.use(limiter)
-app.use(standardFormat)
+// app.use(standardFormat)
 app.use(logger)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))

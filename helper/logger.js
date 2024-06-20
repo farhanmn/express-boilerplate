@@ -7,6 +7,9 @@ const morganChalk = morgan((tokens, req, res) => {
   if (body.password) {
     body = { ...body, password: '******' }
   }
+  if (body.user_password) {
+    body = { ...body, user_password: '******' }
+  }
   body = JSON.stringify(body)
 
   return [

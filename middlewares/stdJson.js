@@ -1,3 +1,4 @@
+// deprecated
 import { getName } from '#helper/statuscode.js'
 
 const formatJson = (status, data, message) => {
