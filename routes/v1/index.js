@@ -9,7 +9,6 @@ const __dirname = dirname(__filename)
 const router = express.Router()
 const folderPath = __dirname
 
-// Function to dynamically import routes from files in this folder
 const importRoutes = () => {
   const files = readdirSync(folderPath)
 

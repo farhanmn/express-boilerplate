@@ -9,11 +9,9 @@ config()
 import { fileURLToPath } from 'url'
 import route from '#routes/index.js'
 
-// database
 import knex from '#models/index.js'
 
 import logger from '#helper/logger.js'
-// import standardFormat from '#middlewares/stdJson.js'
 
 import { limiter } from '#helper/security.js'
 
@@ -25,7 +23,7 @@ const app = express()
 app.use(compression())
 app.use(helmet())
 app.use(limiter)
-// app.use(standardFormat)
+
 app.use(logger)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -52,7 +50,6 @@ const gracefulShutdown = (signal) => {
     process.exit(0)
   })
 
-  // If after 10 seconds server hasn't finished, force shutdown
   setTimeout(() => {
     console.error(
       'Could not close connections in time, forcefully shutting down'

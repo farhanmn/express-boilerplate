@@ -3,9 +3,9 @@ import { SC } from '#helper/statuscode.js'
 import { hash } from '#helper/crypto.js'
 import { create_token, verify } from '#helper/user.js'
 import moment from 'moment'
-import defaultResponse from '#views/defaultResponse.js'
 
 import userServices from '#services/userServices.js'
+import defaultResponse from '#views/defaultResponse.js'
 
 const signUp = async (req, res) => {
   const { user_email, user_password, user_name, user_phone } = req.body
