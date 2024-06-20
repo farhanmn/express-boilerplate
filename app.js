@@ -3,10 +3,11 @@ import cookieParser from 'cookie-parser'
 import path from 'path'
 import helmet from 'helmet'
 import compression from 'compression'
-import dotenv from 'dotenv'
+import { config } from 'dotenv'
+config()
+
 import { fileURLToPath } from 'url'
 import route from '#routes/index.js'
-dotenv.config()
 
 // database
 import knex from '#models/index.js'
@@ -32,7 +33,7 @@ app.use(cookieParser())
 
 app.use(express.static(path.join(__dirname, 'public')))
 
-route(app)
+app.use('/', route)
 
 const port = process.env.PORT || 3000
 

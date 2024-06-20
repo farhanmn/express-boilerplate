@@ -1,11 +1,8 @@
-import users from '#routes/users.js'
-import sample from '#routes/sample.js'
-import { SC } from '#helper/statuscode.js'
+import express from 'express'
+import v1 from '#routes/v1/index.js'
 
-const errorHandler = (req, res) => {
-  res.stdJson(SC.NOT_FOUND, null, 'Invalid route')
-}
-export default (app) => {
-  app.use('/users', users), app.use('/sample', sample)
-  app.all('*', errorHandler)
-}
+const router = express.Router()
+
+router.use('/v1', v1)
+
+export default router

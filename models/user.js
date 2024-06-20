@@ -28,10 +28,15 @@ const user = {
       user_phone,
     })
   },
-  updateUser: ({ user_id, user_last_login_at }) => {
-    return knex(tableName).where({ user_id }).update({
-      user_last_login_at,
-    })
+  updateUser: async ({ user_id, user_last_login_at }) => {
+    const update = await knex(tableName)
+      .where({ user_id })
+      .update({
+        user_last_login_at,
+      })
+      .returning('user_id')
+    console.log(update)
+    return update
   },
 }
 

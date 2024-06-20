@@ -16,7 +16,8 @@
     "#middlewares/*": "./middlewares/*",
     "#models/*": "./models/*",
     "#public/*": "./public/*",
-    "#routes/*": "./routes/*"
+    "#routes/*": "./routes/*",
+    "#services/*": "./services/*"
   },
   "engines": {
     "node": ">=21.1.0"

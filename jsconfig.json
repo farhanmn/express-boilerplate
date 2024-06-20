@@ -9,7 +9,8 @@
       "#middlewares/*": ["middlewares/*"],
       "#models/*": ["models/*"],
       "#public/*": ["public/*"],
-      "#routes/*": ["routes/*"]
+      "#routes/*": ["routes/*"],
+      "#services/*": ["services/*"]
     }
   }
 }

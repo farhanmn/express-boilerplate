@@ -1,39 +1,18 @@
 import Knex from 'knex'
-import enVariables from '#config/index.js'
+import configs from '../knexfile.js'
 import chalk from 'chalk'
 
-const config = enVariables
-
-const knex = Knex({
-  client: config.dialect || 'mysql',
-  connection: {
-    host: config.host,
-    user: config.username,
-    password: config.password,
-    database: config.database,
-    debug: true,
-  },
-  pool: {
-    min: 2,
-    max: 10,
-  },
-  log: {
-    debug(message) {
-      console.log(message)
-    },
-  },
-})
+const knex = Knex(configs[process.env.NODE_ENV || 'development'])
+const dialect = process.env.DB_DIALECT || 'pg'
 
 knex
   .raw('SELECT version() as version')
-  .then((res) => {
-    console.log(`app:database ${config.dialect} connection with knex success!`)
+  .then(() => {
+    console.log(`app:database ${dialect} connection with knex success!`)
   })
   .catch((e) => {
     console.log(
-      chalk.bgRed(
-        `app:database ${config.dialect} connection with knex error:` + e
-      )
+      chalk.bgRed(`app:database ${dialect} connection with knex error:` + e)
     )
   })
 

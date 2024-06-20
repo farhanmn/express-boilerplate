@@ -10,5 +10,3 @@ database/migrations/*
 
 public/*
 !public/.gitkeep
-
-knexfile.js
