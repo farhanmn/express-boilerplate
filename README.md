@@ -16,29 +16,31 @@ Clone this express-boilerplate with git
 
 ## Folder Structure
 
+```
 .
 ├── /controllers
-│ └── authController.js # sample controller
+│ └── authController.js   # sample controller
 ├── /database
-│ ├── migrations # migration folder
-│ └── knexfile.js # knex config
+│ ├── migrations          # migration folder
+│ └── knexfile.js         # knex config
 ├── /helper
 ├── /middlewares
-├── /models # database models
-├── /public # public folder/file
+├── /models               # database models
+├── /public               # public folder/file
 ├── /routes
-│ ├── v1 # version 1 endpoint
+│ ├── v1                  # version 1 endpoint
 │ └── index.js
 ├── /services
-│ └── userService.js # sample services
+│ └── userService.js      # sample services
 ├── /views
-│ └── defaultResponse.js # default JSON response
-├── env.development # sample environment variable files
+│ └── defaultResponse.js  # default JSON response
+├── env.development       # sample environment variable files
 ├── .gitignore
 ├── app.js
 ├── jsconfig.json
 ├── package.json
 └── README.md
+```
 
 ## Environment Variables
 
