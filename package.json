@@ -5,8 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "imports": {
     "#config/*": "./config/*",
@@ -37,6 +37,7 @@
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "mysql2": "^3.10.0",
+    "pg": "^8.12.0",
     "postgres": "^3.4.4",
     "sqlite3": "^5.1.7"
   },

@@ -20,7 +20,6 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const app = express()
-const config = process.env
 
 app.use(compression())
 app.use(helmet())
@@ -41,10 +40,25 @@ const server = app.listen(port, () => {
   console.log(`Server listening on port ${port}`)
 })
 
-process.on('SIGINT', async () => {
-  console.log('Closed out remaining connections')
-  server.close()
-  await knex.destroy()
-  console.log('app:database connection closed!')
-  process.exit(0)
-})
+const gracefulShutdown = (signal) => {
+  console.log(
+    `Received signal ${signal} to terminate. Shutting down gracefully...`
+  )
+  server.close(async () => {
+    console.log('Closed out remaining connections.')
+    await knex.destroy()
+    console.log('app:database connection closed!')
+    process.exit(0)
+  })
+
+  // If after 10 seconds server hasn't finished, force shutdown
+  setTimeout(() => {
+    console.error(
+      'Could not close connections in time, forcefully shutting down'
+    )
+    process.exit(1)
+  }, 10000)
+}
+
+process.on('SIGINT', () => gracefulShutdown('SIGINT'))
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'))

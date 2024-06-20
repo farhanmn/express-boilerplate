@@ -1,5 +1,6 @@
 import Knex from 'knex'
 import enVariables from '#config/index.js'
+import chalk from 'chalk'
 
 const config = enVariables
 
@@ -29,8 +30,10 @@ knex
     console.log(`app:database ${config.dialect} connection with knex success!`)
   })
   .catch((e) => {
-    console.error(
-      `app:database ${config.dialect} connection with knex error : \n` + e
+    console.log(
+      chalk.bgRed(
+        `app:database ${config.dialect} connection with knex error:` + e
+      )
     )
   })
 
