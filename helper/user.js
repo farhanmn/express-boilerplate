@@ -17,8 +17,8 @@ const jwtConf = {
 
 const create_token = (userdata) => {
   let data = {
-    userid: userdata.user_id,
-    username: userdata.user_name,
+    user_id: userdata.user_id,
+    user_name: userdata.user_name,
   }
   let token = sign(data, jwtConf.secret, jwtConf.signOptions)
   let tokenRefresh = sign(data, jwtConf.refresh_secret, jwtConf.signOptions)

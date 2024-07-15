@@ -26,6 +26,9 @@ const commonConfig = {
     directory: './database/migrations',
     tableName: 'knex_migrations',
   },
+  seeds: {
+    directory: './database/migrations/seeds/dev',
+  },
 }
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
