@@ -1,6 +1,6 @@
 # Express Boilerplate
 
-An Express Boilerplate with Javascript ES6 style and Knex
+An Express Boilerplate with Javascript ES6 (module) style and Knex
 
 ## Installation
 
