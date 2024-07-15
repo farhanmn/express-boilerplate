@@ -21,8 +21,7 @@ Clone this express-boilerplate with git
 ├── /controllers
 │ └── authController.js   # sample controller
 ├── /database
-│ ├── migrations          # migration folder
-│ └── knexfile.js         # knex config
+│ └── migrations          # migration folder
 ├── /helper
 ├── /middlewares
 ├── /models               # database models
@@ -38,6 +37,7 @@ Clone this express-boilerplate with git
 ├── .gitignore
 ├── app.js
 ├── jsconfig.json
+├── knexfile.js           # knex config
 ├── package.json
 └── README.md
 ```

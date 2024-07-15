@@ -4,10 +4,8 @@ config()
 const environments = ['development', 'staging', 'production']
 const dialect = process.env.DB_DIALECT || 'pg'
 const with_debug =
-  process.env.DB_DEBUG.toLowerCase() === 'true' ||
-  process.env.DB_DEBUG.toLowerCase() === '1'
-    ? true
-    : false
+  !!process.env.DB_DEBUG &&
+  ['true', '1'].includes(process.env.DB_DEBUG.toLowerCase())
 
 const connection = {
   host: process.env.DB_HOST,

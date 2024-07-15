@@ -1,5 +1,5 @@
 import Knex from 'knex'
-import configs from '#database/knexfile.js'
+import configs from './../knexfile.js'
 import chalk from 'chalk'
 
 const knex = Knex(configs[process.env.NODE_ENV || 'development'])
