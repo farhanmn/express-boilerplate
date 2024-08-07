@@ -1,6 +1,6 @@
-# Express Boilerplate
+# Express Boilerplate 2
 
-An Express Boilerplate with Javascript ES6 (module) style and Knex
+An Express Boilerplate with Javascript ES6 (module) style and Knex Query Builder
 
 ## Installation
 
