@@ -20,13 +20,16 @@ const userModel = {
     user_password_salt,
     user_phone,
   }) => {
-    return knex(tableName).insert({
-      user_name,
-      user_email,
-      user_password,
-      user_password_salt,
-      user_phone,
-    })
+    return knex(tableName)
+      .insert({
+        user_name,
+        user_email,
+        user_password,
+        user_password_salt,
+        user_phone,
+      })
+      .onConflict('user_email')
+      .merge()
   },
   updateUser: async ({ user_id, user_last_login_at }) => {
     const update = await knex(tableName)
