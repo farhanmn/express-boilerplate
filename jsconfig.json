@@ -11,7 +11,8 @@
       "#public/*": ["public/*"],
       "#routes/*": ["routes/*"],
       "#services/*": ["services/*"],
-      "#views/*": ["views/*"]
+      "#views/*": ["views/*"],
+      "#tests/*": ["tests/*"]
     }
   }
 }

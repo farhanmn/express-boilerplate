@@ -1,23 +1,47 @@
 import { config } from 'dotenv'
 config()
 
-const environments = ['development', 'staging', 'production']
+const environments = ['test', 'development', 'production']
 const dialect = process.env.DB_DIALECT || 'pg'
 const with_debug =
   !!process.env.DB_DEBUG &&
   ['true', '1'].includes(process.env.DB_DEBUG.toLowerCase())
 
-const connection = {
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+const validateConfig = (config) => {
+  for (const [key, value] of Object.entries(config)) {
+    if (!value) {
+      throw new Error(`Missing environment variable for ${key}`)
+    }
+  }
 }
+
+const connection = {
+  production: {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
+  },
+  development: {
+    host: process.env.DB_DEV_HOST,
+    user: process.env.DB_DEV_USER,
+    password: process.env.DB_DEV_PASS,
+    database: process.env.DB_DEV_NAME,
+  },
+  test: {
+    host: process.env.DB_TEST_HOST,
+    user: process.env.DB_TEST_USER,
+    password: process.env.DB_TEST_PASS,
+    database: process.env.DB_TEST_NAME,
+  },
+}
+
+validateConfig(connection[process.env.NODE_ENV || 'development'])
 
 const commonConfig = {
   client: dialect,
   debug: with_debug,
-  connection,
+  connection: connection[process.env.NODE_ENV || 'development'],
   pool: {
     min: 2,
     max: 10,
@@ -27,7 +51,7 @@ const commonConfig = {
     tableName: 'knex_migrations',
   },
   seeds: {
-    directory: './database/migrations/seeds/dev',
+    directory: './database/seeds/dev',
   },
 }
 /**
