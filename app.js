@@ -9,7 +9,7 @@ config()
 import { fileURLToPath } from 'url'
 import route from '#routes/index.js'
 
-import knex from '#models/index.js'
+import { closeDB } from '#models/index.js'
 
 import logger from '#helper/logger.js'
 
@@ -39,24 +39,29 @@ const server = app.listen(port, () => {
   console.log(`Server listening on port ${port}`)
 })
 
-const gracefulShutdown = (signal) => {
-  console.log(
-    `Received signal ${signal} to terminate. Shutting down gracefully...`
-  )
-  server.close(async () => {
-    console.log('Closed out remaining connections.')
-    await knex.destroy()
-    console.log('app:database connection closed!')
-    process.exit(0)
-  })
-
-  setTimeout(() => {
-    console.error(
-      'Could not close connections in time, forcefully shutting down'
+const shutDown = (signal) => {
+  if (process.env.NODE_ENV === 'test') {
+    server.close()
+  } else {
+    console.log(
+      `Received signal ${signal} to terminate. Shutting down gracefully...`
     )
-    process.exit(1)
-  }, 10000)
+    server.close(async () => {
+      console.log('Closed out remaining connections.')
+      await closeDB()
+      process.exit(0)
+    })
+
+    setTimeout(() => {
+      console.error(
+        'Could not close connections in time, forcefully shutting down'
+      )
+      process.exit(1)
+    }, 10000)
+  }
 }
 
-process.on('SIGINT', () => gracefulShutdown('SIGINT'))
-process.on('SIGTERM', () => gracefulShutdown('SIGTERM'))
+process.on('SIGINT', shutDown)
+process.on('SIGTERM', shutDown)
+
+export { app, shutDown }
