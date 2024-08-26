@@ -6,18 +6,17 @@ import moment from 'moment'
 
 import userServices from '#services/userServices.js'
 import defaultResponse from '#views/defaultResponse.js'
+import { errorValue, validateParams } from '#helper/validate.js'
 
 const signUp = async (req, res) => {
   const { user_email, user_password, user_name, user_phone } = req.body
   try {
+    validateParams(req.body, ['user_email', 'user_password'])
     const user = await userServices.checkUser({ user_email, user_phone })
-    if (user) {
-      return res.status(SC.UNPROCESSABLE).json(
-        defaultResponse.renderError({
-          message: 'User with that email or phone already exists',
-        })
-      )
-    }
+    errorValue(user, {
+      statusCode: SC.UNPROCESSABLE,
+      message: 'User with that email or phone already exists',
+    })
 
     const hashpassword = hash(user_password)
     await userServices.createUser({
@@ -30,10 +29,12 @@ const signUp = async (req, res) => {
     return res.status(SC.CREATED).json(defaultResponse.renderCreatedData())
   } catch (e) {
     console.log(e)
-    return res.status(SC.SERVER_ERROR).json(
+    const stCode = e.statusCode || SC.SERVER_ERROR
+    const message = e.message || 'Could not perform operation at this time'
+
+    return res.status(stCode).json(
       defaultResponse.renderError({
-        message:
-          'Could not perform operation at this time, kindly try again later.',
+        message,
       })
     )
   }
@@ -42,23 +43,21 @@ const signUp = async (req, res) => {
 const signIn = async (req, res) => {
   const { user_email, user_phone, user_password } = req.body
   try {
+    validateParams(req.body, ['user_email', 'user_password'])
+
     const user = await userServices.checkUser({ user_email, user_phone })
-    if (!user) {
-      return res.status(SC.UNAUTHORIZED).json(
-        defaultResponse.renderError({
-          message: 'User with that email or phone does not exist',
-        })
-      )
-    }
+
+    errorValue(!user, {
+      statusCode: SC.UNAUTHORIZED,
+      message: 'User with that email or phone does not exist',
+    })
 
     const verifyData = verify(user, { user_password })
-    if (!verifyData) {
-      return res.status(SC.UNAUTHORIZED).json(
-        defaultResponse.renderError({
-          message: 'Incorrect password',
-        })
-      )
-    }
+
+    errorValue(!verifyData, {
+      statusCode: SC.UNAUTHORIZED,
+      message: 'Email or password is incorrect',
+    })
 
     await userServices.updateUser({
       user_id: user.user_id,
@@ -69,10 +68,12 @@ const signIn = async (req, res) => {
     return res.status(SC.OK).json(defaultResponse.renderData(user))
   } catch (e) {
     console.log(e)
-    return res.status(SC.SERVER_ERROR).json(
+    const stCode = e.statusCode || SC.SERVER_ERROR
+    const message = e.message || 'Could not perform operation at this time'
+
+    return res.status(stCode).json(
       defaultResponse.renderError({
-        message:
-          'Could not perform operation at this time, kindly try again later.',
+        message,
       })
     )
   }
