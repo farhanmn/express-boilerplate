@@ -11,7 +11,9 @@ const jwtConf = {
     expiresIn: process.env.JWT_EXPIRES_IN || '10d',
   },
   verifyOptions: {
-    algorithms: [process.env.JWT_ALGORITHM] || ['HS256'],
+    algorithms: process.env.JWT_ALGORITHM
+      ? [process.env.JWT_ALGORITHM]
+      : ['HS256'],
   },
 }
 

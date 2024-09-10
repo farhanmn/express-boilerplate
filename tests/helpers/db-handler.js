@@ -1,4 +1,5 @@
 import Knex from 'knex'
+import chalk from 'chalk'
 import configs from './../../knexfile.js'
 
 let knex
@@ -8,7 +9,7 @@ const Connect = async () => {
   const dialect = process.env.DB_DIALECT || 'pg'
   knex
     .raw('SELECT version() as version')
-    .then((res) => {
+    .then(() => {
       console.log(`app:database ${dialect} connection with knex success!`)
     })
     .catch((e) => {

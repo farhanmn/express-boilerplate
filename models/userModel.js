@@ -1,4 +1,4 @@
-import knex from '#models/index.js'
+import { knex } from '#models/index.js'
 
 const tableName = 'users'
 

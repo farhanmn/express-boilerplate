@@ -31,11 +31,13 @@ Clone this express-boilerplate with git
 │ └── index.js
 ├── /services
 │ └── userService.js      # sample services
+├── /tests                # test directory
 ├── /views
 │ └── defaultResponse.js  # default JSON response
 ├── env.development       # sample environment variable files
 ├── .gitignore
 ├── app.js
+├── eslint.config.js      # ESLint configuration
 ├── jsconfig.json
 ├── knexfile.js           # knex config
 ├── package.json
@@ -69,11 +71,15 @@ To run this project, you will need to add the following environment variables to
 - [morgan](https://github.com/expressjs/morgan) - HTTP request logger middleware for node.js
 - [chalk](https://github.com/chalk/chalk#readme) - Terminal string styling done right
 - [knex](https://knexjs.org/) - is a "batteries included" SQL query builder for PostgreSQL, CockroachDB, MSSQL, MySQL, MariaDB, SQLite3, Better-SQLite3, Oracle, and Amazon Redshift designed to be flexible, portable, and fun to use.
+- [Jest](https://jestjs.io) - A delightful JavaScript Testing Framework with a focus on simplicity.
+- [ESLint](https://eslint.org/) - ESLint statically analyzes your code to quickly find problems. It is built into most text editors and you can run ESLint as part of your continuous integration pipeline.
 
 ## Script
 
 - `yarn start` - Runs the application using Node.js
 - `yarn dev` - Runs the application in development mode with automatic restarts using `nodemon`
+- `yarn test` - Run the test
+- `yarn lint` - Run linter
 
 ## Authors
 
