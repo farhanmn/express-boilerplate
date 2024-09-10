@@ -34,6 +34,10 @@
   },
   "author": "Muhammad Farhan",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/farhannjb/express-boilerplate-2/issues"
+  },
+  "homepage": "https://github.com/farhannjb/express-boilerplate-2#readme",
   "dependencies": {
     "chalk": "^5.3.0",
     "compression": "^1.7.4",
