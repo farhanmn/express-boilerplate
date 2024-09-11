@@ -9,7 +9,7 @@ config()
 import { fileURLToPath } from 'url'
 import route from '#routes/index.js'
 
-import { closeDB } from '#models/index.js'
+import { Connect as connectDB, Close as closeDB } from '#models/index.js'
 
 import logger from '#helper/logger.js'
 
@@ -35,9 +35,20 @@ app.use('/', route)
 
 const port = process.env.PORT || 3000
 
-const server = app.listen(port, () => {
-  console.log(`Server listening on port ${port}`)
-})
+let server
+const startServer = async () => {
+  try {
+    if (process.env.NODE_ENV !== 'test') {
+      await connectDB()
+    }
+
+    server = app.listen(port, () => {
+      console.log(`Server listening on port ${port}`)
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 const shutDown = (signal) => {
   if (process.env.NODE_ENV === 'test') {
@@ -63,5 +74,7 @@ const shutDown = (signal) => {
 
 process.on('SIGINT', shutDown)
 process.on('SIGTERM', shutDown)
+
+startServer()
 
 export { app, shutDown }

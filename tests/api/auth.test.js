@@ -1,7 +1,7 @@
 import request from 'supertest'
 
 import { app, shutDown } from './../../app.js'
-import { Close } from '#tests/helpers/db-handler.js'
+import { Connect, Close } from '#tests/helpers/db-handler.js'
 
 import userServices from '#services/userServices.js'
 import { hash } from '#helper/crypto.js'
@@ -10,14 +10,14 @@ import { create_token } from '#helper/user.js'
 describe('Testing Auth Routes', () => {
   let user
   afterAll(async () => {
+    await userServices.delUser({ email: 'only4Test@testing.com' })
+    await userServices.delUser({ email: 'only4Test1@testing.com' })
+
     await Close()
     shutDown()
   })
-  afterAll(async () => {
-    await userServices.delUser({ email: 'only4Test@testing.com' })
-    await userServices.delUser({ email: 'only4Test1@testing.com' })
-  })
   beforeAll(async () => {
+    await Connect()
     const hashedPassword = hash('password')
 
     user = await userServices.createUser({

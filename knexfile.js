@@ -1,7 +1,7 @@
+import Knex from 'knex'
 import { config } from 'dotenv'
 config()
 
-const environments = ['test', 'development', 'production']
 const dialect = process.env.DB_DIALECT || 'pg'
 const with_debug =
   !!process.env.DB_DEBUG &&
@@ -54,9 +54,7 @@ const commonConfig = {
     directory: './database/seeds/dev',
   },
 }
-/**
- * @type { Object.<string, import("knex").Knex.Config> }
- */
-export default Object.fromEntries(
-  environments.map((env) => [env, commonConfig])
-)
+
+const knex = Knex(commonConfig)
+
+export default knex
