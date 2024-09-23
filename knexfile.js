@@ -1,4 +1,3 @@
-import Knex from 'knex'
 import { config } from 'dotenv'
 config()
 
@@ -38,7 +37,7 @@ const connection = {
 
 validateConfig(connection[process.env.NODE_ENV || 'development'])
 
-const commonConfig = {
+export default {
   client: dialect,
   debug: with_debug,
   connection: connection[process.env.NODE_ENV || 'development'],
@@ -54,7 +53,3 @@ const commonConfig = {
     directory: './database/seeds/dev',
   },
 }
-
-const knex = Knex(commonConfig)
-
-export default knex
