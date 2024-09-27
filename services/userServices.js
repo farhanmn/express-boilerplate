@@ -1,29 +1,28 @@
 import userModel from '#models/userModel.js'
 
 const userServices = {
-  getProfile: ({ user_id }) => {
-    return userModel.getProfile({ user_id })
+  getProfile: ({ id }) => {
+    return userModel.getProfile({ id })
   },
-  checkUser: ({ user_phone = null, user_email = null }) => {
-    return userModel.checkUser({ user_phone, user_email })
+  checkUser: ({ phone = null, email = null }) => {
+    return userModel.checkUser({ phone, email })
   },
-  createUser: ({
-    user_name,
-    user_email,
-    user_password,
-    user_password_salt,
-    user_phone,
-  }) => {
+  createUser: ({ name, email, password, password_salt, phone, status = 0 }) => {
     return userModel.createUser({
-      user_name,
-      user_email,
-      user_password,
-      user_password_salt,
-      user_phone,
+      name,
+      email,
+      password,
+      password_salt,
+      phone,
+      status,
     })
   },
-  updateUser: async ({ user_id, user_last_login_at }) => {
-    return userModel.updateUser({ user_id, user_last_login_at })
+  updateUser: async ({ id, data }) => {
+    return userModel.updateUser({ id, ...data })
+  },
+
+  delUser: async ({ email }) => {
+    return userModel.delUser({ email })
   },
 }
 

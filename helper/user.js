@@ -17,15 +17,20 @@ const jwtConf = {
   },
 }
 
-const create_token = (userdata) => {
+const create_token = (userdata, expires) => {
   let data = {
-    user_id: userdata.user_id,
-    user_name: userdata.user_name,
+    userid: userdata.id,
+    username: userdata.name,
   }
-  let token = sign(data, jwtConf.secret, jwtConf.signOptions)
-  let tokenRefresh = sign(data, jwtConf.refresh_secret, jwtConf.signOptions)
+  let tokenOptions = jwtConf.signOptions
+
+  if (expires)
+    Object.assign({}, tokenOptions, {
+      expiresIn: expires,
+    })
+
+  let token = sign(data, jwtConf.secret, tokenOptions)
   data.token = token
-  data.tokenRefresh = tokenRefresh
 
   return data
 }
@@ -34,15 +39,9 @@ const verify = (userdata, logindata) => {
   if (!userdata) {
     return false
   }
-  if (
-    match(
-      logindata.user_password,
-      userdata.user_password,
-      userdata.user_password_salt
-    )
-  ) {
-    delete userdata.user_password
-    delete userdata.user_password_salt
+  if (match(logindata.password, userdata.password, userdata.password_salt)) {
+    delete userdata.password
+    delete userdata.password_salt
     return userdata
   }
   return false

@@ -3,43 +3,45 @@ import { knex } from '#models/index.js'
 const tableName = 'users'
 
 const userModel = {
-  getProfile: ({ user_id }) => {
-    return knex(tableName).where({ user_id }).first()
+  getProfile: ({ id }) => {
+    return knex(tableName).where({ id }).first()
   },
-  checkUser: ({ user_phone = null, user_email = null }) => {
+  checkUser: ({ phone = null, email = null }) => {
     return knex(tableName)
       .where(function () {
-        this.where('user_phone', user_phone).orWhere('user_email', user_email)
+        if (phone) this.where('phone', phone)
+        if (email) this.orWhere('email', email)
       })
       .first()
   },
-  createUser: ({
-    user_name,
-    user_email,
-    user_password,
-    user_password_salt,
-    user_phone,
-  }) => {
+  createUser: ({ name, email, password, password_salt, phone, status }) => {
     return knex(tableName)
       .insert({
-        user_name,
-        user_email,
-        user_password,
-        user_password_salt,
-        user_phone,
+        name,
+        email,
+        password,
+        password_salt,
+        phone,
+        status,
       })
-      .onConflict('user_email')
+      .onConflict('email')
       .merge()
+      .returning('id')
   },
-  updateUser: async ({ user_id, user_last_login_at }) => {
+  updateUser: async ({ id, ...data }) => {
     const update = await knex(tableName)
-      .where({ user_id })
-      .update({
-        user_last_login_at,
-      })
-      .returning('user_id')
-    console.log(update)
+      .where({ id })
+      .update({ ...data })
+      .returning('id')
     return update
+  },
+
+  delUser: async ({ email }) => {
+    try {
+      await knex(tableName).where({ email }).del()
+    } catch (error) {
+      console.error(error)
+    }
   },
 }
 

@@ -3,6 +3,7 @@ import { SC } from '#helper/statuscode.js'
 const { verify } = jwt
 
 import userServices from '#services/userServices.js'
+import defaultResponse from '#views/defaultResponse.js'
 
 const jwtConf = {
   secret: process.env.JWT_SECRET || 'secret',
@@ -34,13 +35,21 @@ const useraccess = (router) => {
         if (decoded.exp) delete decoded.exp
         if (decoded.userid) {
           const profile = await userServices.getProfile({
-            user_id: decoded.userid,
+            id: decoded.userid,
           })
           if (!profile) {
-            return res.stdJson(SC.UNAUTHORIZED, { status: false })
+            return res.status(SC.UNAUTHORIZED).json(
+              defaultResponse.renderError({
+                message: 'User not found',
+              })
+            )
           } else {
             if (profile.is_deleted == 1) {
-              return res.stdJson(SC.UNAUTHORIZED, { status: false })
+              return res.status(SC.UNAUTHORIZED).json(
+                defaultResponse.renderError({
+                  message: 'User deleted',
+                })
+              )
             } else {
               req.access = decoded
               next()
@@ -49,13 +58,21 @@ const useraccess = (router) => {
         }
       } catch (err) {
         console.log(err)
-        return res.stdJson(SC.UNAUTHORIZED, { status: false })
+        return res.status(SC.UNAUTHORIZED).json(
+          defaultResponse.renderError({
+            message: 'Invalid token',
+          })
+        )
       }
     } else {
       if (req.path === '/user/login' || req.path === '/user/register') {
         return next()
       } else {
-        return res.stdJson(SC.UNAUTHORIZED, { status: false })
+        return res.status(SC.UNAUTHORIZED).json(
+          defaultResponse.renderError({
+            message: 'No token provided',
+          })
+        )
       }
     }
   })

@@ -1,5 +1,8 @@
-import knex from './../../knexfile.js'
+import Knex from 'knex'
+import config from './../../knexfile.js'
 import chalk from 'chalk'
+
+const knex = Knex(config)
 
 const Connect = async () => {
   try {

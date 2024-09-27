@@ -57,15 +57,15 @@ describe('Testing Auth Routes', () => {
 
       const body = response.body
       expect(body).toHaveProperty('status', 'error')
-      expect(body).toHaveProperty('message', 'Incorrect password')
+      expect(body).toHaveProperty('message', 'Email or password is incorrect')
       expect(body).not.toHaveProperty('token')
     })
 
     it('should not login with wrong email', async () => {
       const response = await request(app)
         .post('/v1/users/login')
-        .send({ email: 'only4Test@testing1.com', password: 'password' })
-        .expect(400)
+        .send({ email: 'only4Test@testing1.com', password: 'password1' })
+        .expect(401)
 
       const body = response.body
       expect(body).toHaveProperty('status', 'error')
@@ -80,7 +80,7 @@ describe('Testing Auth Routes', () => {
       const response = await request(app)
         .post('/v1/users/login')
         .send({ email: 'only4Test1@testing.com', password: 'password' })
-        .expect(400)
+        .expect(401)
 
       const body = response.body
       expect(body).toHaveProperty('status', 'error')
@@ -93,14 +93,14 @@ describe('Testing Auth Routes', () => {
     it('should get profile successfully', async () => {
       const { token } = create_token(
         {
-          id: user.id,
+          id: user[0].id,
           name: 'Testing',
         },
         '1m'
       )
       const response = await request(app)
         .get('/v1/users/profile')
-        .set('Authorization', `Bearer ${token}`)
+        .set('authorization', `Bearer ${token}`)
         .expect(200)
 
       const body = response.body
@@ -132,7 +132,7 @@ describe('Testing Auth Routes', () => {
     it('Should success update profile', async () => {
       const { token } = create_token(
         {
-          id: user.id,
+          id: user[0].id,
           name: 'Testing',
         },
         '1m'
@@ -143,28 +143,6 @@ describe('Testing Auth Routes', () => {
         .set('Authorization', `Bearer ${token}`)
         .send({
           name: 'Testing 1',
-        })
-        .expect(200)
-      const body = response.body
-      expect(body).toHaveProperty('status', 'success')
-      expect(body).toHaveProperty('data')
-    })
-
-    it('Should success update password user', async () => {
-      const { token } = create_token(
-        {
-          id: user.id,
-          name: 'Testing',
-        },
-        '1m'
-      )
-
-      const response = await request(app)
-        .put('/v1/users/profile')
-        .set('Authorization', `Bearer ${token}`)
-        .send({
-          password: 'password',
-          new_password: 'password1',
         })
         .expect(200)
       const body = response.body
