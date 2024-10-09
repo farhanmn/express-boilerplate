@@ -3,6 +3,12 @@ import config from './../knexfile.js'
 import chalk from 'chalk'
 
 const knex = Knex(config)
+/**
+ * Connect to the database using knex.
+ * @async
+ * @function Connect
+ * @returns {Promise<void>}
+ */
 const Connect = async () => {
   try {
     const dialect = process.env.DB_DIALECT || 'pg'
@@ -23,6 +29,12 @@ const Connect = async () => {
   }
 }
 
+/**
+ * Close the connection to the database using knex.
+ * @async
+ * @function Close
+ * @returns {Promise<void>}
+ */
 const Close = async () => {
   try {
     console.log('close db connection')

@@ -2,7 +2,7 @@ import morgan from 'morgan'
 import chalk from 'chalk'
 import moment from 'moment'
 
-const morganChalk = morgan((tokens, req, res) => {
+export default morgan((tokens, req, res) => {
   let body = req.body
   if (body.password) {
     body = { ...body, password: '******' }
@@ -25,5 +25,3 @@ const morganChalk = morgan((tokens, req, res) => {
     chalk.white('| ' + tokens['response-time'](req, res) + ' ms'),
   ].join(' ')
 })
-
-export default morganChalk

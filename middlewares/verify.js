@@ -14,6 +14,17 @@ const jwtConf = {
   },
 }
 
+/**
+ * Middleware to verify user access token
+ * @param {object} router - the express router
+ * @function
+ * @name useraccess
+ * @description
+ * This middleware is used to verify the user access token.
+ * It checks if the token is valid and if the user is active.
+ * If the token is invalid or the user is not active, it returns 401 Unauthorized.
+ * If the token is valid and the user is active, it sets the req.access object with the user data.
+ */
 const useraccess = (router) => {
   router.use(async function (req, res, next) {
     let token =

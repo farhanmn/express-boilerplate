@@ -17,6 +17,12 @@ const jwtConf = {
   },
 }
 
+/**
+ * Create a JWT token for the given userdata
+ * @param {Object} userdata - data to be inserted in the JWT token
+ * @param {string} [expires] - override the default expiration of the token
+ * @returns {Object} containing the JWT token and the userdata
+ */
 const create_token = (userdata, expires) => {
   let data = {
     userid: userdata.id,
@@ -35,6 +41,12 @@ const create_token = (userdata, expires) => {
   return data
 }
 
+/**
+ * Verify if the given userdata and logindata are valid
+ * @param {Object} userdata - data from the database. userdata minimum have password and password_salt
+ * @param {Object} logindata - data from the user. logindata minimum have password
+ * @returns {Object} userdata if valid, false if not
+ */
 const verify = (userdata, logindata) => {
   if (!userdata) {
     return false
