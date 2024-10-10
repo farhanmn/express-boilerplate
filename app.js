@@ -36,6 +36,13 @@ app.use('/', route)
 const port = process.env.PORT || 3000
 
 let server
+/**
+ * Start the express server. If the environment is not test,
+ * connect to the database before starting the server.
+ * @function startServer
+ * @async
+ * @returns {Promise<void>}
+ */
 const startServer = async () => {
   try {
     if (process.env.NODE_ENV !== 'test') {
@@ -50,6 +57,15 @@ const startServer = async () => {
   }
 }
 
+/**
+ * Shutdown the server. If the environment is not test,
+ * close the server, log a message, close the database
+ * connection, and exit with a status code of 0. If the
+ * database connection cannot be closed in 10 seconds,
+ * log an error and exit with a status code of 1.
+ * @param {string} signal - The signal that caused the shutdown.
+ * @returns {void}
+ */
 const shutDown = (signal) => {
   if (process.env.NODE_ENV === 'test') {
     server.close()
