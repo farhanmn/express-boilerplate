@@ -7,9 +7,6 @@ export default morgan((tokens, req, res) => {
   if (body.password) {
     body = { ...body, password: '******' }
   }
-  if (body.password) {
-    body = { ...body, password: '******' }
-  }
   body = JSON.stringify(body)
 
   return [
