@@ -1,9 +1,10 @@
 import jwt from 'jsonwebtoken'
-import { SC } from '#helper/statuscode.js'
 const { verify } = jwt
 
+import { SC } from '#helper/statuscode.js'
+import defaultResponse from '#helper/response.js'
+
 import userServices from '#services/userServices.js'
-import defaultResponse from '#views/defaultResponse.js'
 
 const jwtConf = {
   secret: process.env.JWT_SECRET || 'secret',
