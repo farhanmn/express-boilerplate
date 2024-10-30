@@ -23,6 +23,7 @@ Clone this express-boilerplate with git
 ├── /database
 │ └── migrations          # migration folder
 ├── /helper
+│ └── response.js         # default JSON response
 ├── /middlewares
 ├── /models               # database models
 ├── /public               # public folder/file
@@ -33,7 +34,7 @@ Clone this express-boilerplate with git
 │ └── userService.js      # sample services
 ├── /tests                # test directory
 ├── /views
-│ └── defaultResponse.js  # default JSON response
+│ └── home.ejs            # sample EJS view
 ├── env.development       # sample environment variable files
 ├── .gitignore
 ├── app.js
