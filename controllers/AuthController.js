@@ -1,10 +1,11 @@
 import moment from 'moment'
+import { StatusCodes as SC } from 'http-status-codes'
 
-import { SC } from '#helper/statuscode.js'
 import { hash } from '#helper/crypto.js'
 import { create_token, verify } from '#helper/user.js'
 import defaultResponse from '#helper/response.js'
 import { errorValue, validateParams } from '#helper/validate.js'
+import { errorFormat } from '#helper/format.js'
 
 import userServices from '#services/userServices.js'
 
@@ -14,7 +15,7 @@ const signUp = async (req, res) => {
     validateParams(req.body, ['email', 'password'])
     const user = await userServices.checkUser({ email, phone })
     errorValue(user, {
-      statusCode: SC.UNPROCESSABLE,
+      statusCode: SC.CONFLICT,
       message: 'User with that email or phone already exists',
     })
 
@@ -29,9 +30,7 @@ const signUp = async (req, res) => {
     return res.status(SC.CREATED).json(defaultResponse.renderCreatedData())
   } catch (e) {
     console.log(e)
-    const stCode = e.statusCode || SC.SERVER_ERROR
-    const message = e.message || 'Could not perform operation at this time'
-
+    const { stCode, message } = errorFormat(e)
     return res.status(stCode).json(
       defaultResponse.renderError({
         message,
@@ -75,9 +74,7 @@ const signIn = async (req, res) => {
     return res.status(SC.OK).json(defaultResponse.renderData(user))
   } catch (e) {
     console.log(e)
-    const stCode = e.statusCode || SC.SERVER_ERROR
-    const message = e.message || 'Could not perform operation at this time'
-
+    const { stCode, message } = errorFormat(e)
     return res.status(stCode).json(
       defaultResponse.renderError({
         message,
@@ -92,12 +89,9 @@ const getProfile = async (req, res) => {
   try {
     const profile = await userServices.getProfile({ id: userid })
     return res.status(SC.OK).json(defaultResponse.renderData(profile))
-  } catch (error) {
-    console.log(error)
-
-    const stCode = error.statusCode || SC.SERVER_ERROR
-    const message = error.message || 'Could not perform operation at this time'
-
+  } catch (e) {
+    console.log(e)
+    const { stCode, message } = errorFormat(e)
     return res.status(stCode).json(
       defaultResponse.renderError({
         message,
@@ -120,12 +114,9 @@ const updateProfile = async (req, res) => {
     })
     console.log({ profile })
     return res.status(SC.OK).json(defaultResponse.renderData(profile))
-  } catch (error) {
-    console.log(error)
-
-    const stCode = error.statusCode || SC.SERVER_ERROR
-    const message = error.message || 'Could not perform operation at this time'
-
+  } catch (e) {
+    console.log(e)
+    const { stCode, message } = errorFormat(e)
     return res.status(stCode).json(
       defaultResponse.renderError({
         message,

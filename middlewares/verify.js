@@ -1,7 +1,7 @@
+import { StatusCodes as SC } from 'http-status-codes'
 import jwt from 'jsonwebtoken'
 const { verify } = jwt
 
-import { SC } from '#helper/statuscode.js'
 import defaultResponse from '#helper/response.js'
 
 import userServices from '#services/userServices.js'

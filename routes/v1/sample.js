@@ -5,8 +5,9 @@
 import app from 'express'
 const router = app.Router()
 
+import { StatusCodes as SC, ReasonPhrases } from 'http-status-codes'
+
 import { useraccess } from '#middlewares/verify.js'
-import { SC } from '#helper/statuscode.js'
 
 // sample route with view
 router.get('/home', (req, res) => {
@@ -16,7 +17,9 @@ router.get('/home', (req, res) => {
 useraccess(router)
 
 router.get('/', (req, res) => {
-  return res.stdJson(SC.OK, req.access, 'Welcome')
+  return res.status(SC.OK).json({
+    status: ReasonPhrases.OK,
+  })
 })
 
 export default router
