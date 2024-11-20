@@ -1,4 +1,5 @@
 import moment from 'moment'
+import passport from 'passport'
 import { StatusCodes as SC } from 'http-status-codes'
 
 import { hash } from '#helper/crypto.js'
@@ -83,6 +84,32 @@ const signIn = async (req, res) => {
   }
 }
 
+const signInV2 = async (req, res) => {
+  try {
+    validateParams(req.body, ['email', 'password'])
+
+    passport.authenticate('local', (err, user, info) => {
+      if (!user) {
+        return res.status(info.statusCode).json(
+          defaultResponse.renderError({
+            message: info.message,
+          })
+        )
+      }
+
+      return res.status(SC.OK).json(defaultResponse.renderData(user))
+    })(req, res)
+  } catch (e) {
+    console.log(e)
+    const { stCode, message } = errorFormat(e)
+    return res.status(stCode).json(
+      defaultResponse.renderError({
+        message,
+      })
+    )
+  }
+}
+
 const getProfile = async (req, res) => {
   const { userid } = req.access
 
@@ -125,4 +152,4 @@ const updateProfile = async (req, res) => {
   }
 }
 
-export default { signUp, signIn, getProfile, updateProfile }
+export default { signUp, signIn, signInV2, getProfile, updateProfile }
