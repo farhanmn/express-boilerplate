@@ -1,11 +1,14 @@
+import _ from 'lodash'
 import userModel from '#models/userModel.js'
 
 const userServices = {
   getProfile: ({ id }) => {
     return userModel.getProfile({ id })
   },
-  checkUser: ({ phone = null, email = null }) => {
-    return userModel.checkUser({ phone, email })
+  checkUser: async ({ phone = null, email = null, with_password = false }) => {
+    const profile = await userModel.checkUser({ phone, email })
+    const omitData = with_password ? [] : ['password', 'password_salt']
+    return profile ? _.omit(profile, omitData) : undefined
   },
   createUser: ({ name, email, password, password_salt, phone, status = 0 }) => {
     return userModel.createUser({

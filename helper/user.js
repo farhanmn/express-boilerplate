@@ -41,8 +41,7 @@ const create_token = (userdata, expires) => {
       expiresIn: expires,
     })
 
-  let token = sign(data, jwtConf.secret, tokenOptions)
-  data.token = token
+  data.token = sign(data, jwtConf.secret, tokenOptions)
 
   return data
 }
