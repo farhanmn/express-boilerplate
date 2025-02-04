@@ -3,7 +3,7 @@ const router = app.Router()
 
 import AuthController from '#controllers/AuthController.js'
 
-import { auth } from '#helper/user.js'
+import { auth } from '#middlewares/auth.js'
 
 // running passport configuration
 auth()

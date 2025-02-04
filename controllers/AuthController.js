@@ -45,7 +45,11 @@ const signIn = async (req, res) => {
   try {
     validateParams(req.body, ['email', 'password'])
 
-    const user = await userServices.checkUser({ email, phone })
+    const user = await userServices.checkUser({
+      email,
+      phone,
+      with_password: true,
+    })
 
     errorValue(!user, {
       statusCode: SC.UNAUTHORIZED,

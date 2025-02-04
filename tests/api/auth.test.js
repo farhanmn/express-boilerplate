@@ -10,9 +10,6 @@ import { create_token } from '#helper/user.js'
 describe('Testing Auth Routes', () => {
   let user
   afterAll(async () => {
-    await userServices.delUser({ email: 'only4Test@testing.com' })
-    await userServices.delUser({ email: 'only4Test1@testing.com' })
-
     await Close()
     shutDown()
   })
