@@ -7,8 +7,8 @@ An Express Boilerplate with Javascript ES6 (module) style and Knex Query Builder
 Clone this express-boilerplate with git
 
 ```bash
-  git clone https://github.com/farhannjb/express-boilerplate-2
-  cd express-boilerplate-2
+  git clone https://github.com/farhanmn/express-boilerplate
+  cd express-boilerplate
   ## rename .env.development to .env
   ## adjust the value inside as you needed
   yarn install
@@ -85,4 +85,4 @@ To run this project, you will need to add the following environment variables to
 
 ## Authors
 
-- [@farhannjb](https://github.com/farhannjb)
+- [@farhanmn](https://github.com/farhanmn)
